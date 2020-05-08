@@ -1,6 +1,7 @@
 from flask import Flask,make_response, jsonify,request
 from flask_cors import CORS
 from send_sms import SMSSender
+from result_lookup import Results
 import os
 app = Flask(__name__)
 CORS(app,expose_headers=["Content-Disposition"])
@@ -13,7 +14,9 @@ def root():
     CallType=request.args.get('CallType')
     From=request.args.get('From')
     To=request.args.get('To')
-    msg = 'CallSid:'+CallSid+' CallFrom:'+CallFrom+' CallTo:'+CallTo+' CallType:'+CallType+' From:'+From+' To:'+To
+    res = Results()
+    marks= res.getResult(CallFrom)
+    msg = 'CallSid:'+CallSid+' CallFrom:'+CallFrom+' CallTo:'+CallTo+' CallType:'+CallType+' From:'+From+' To:'+To+' Marks:'+marks
     smsSender = SMSSender()
     response = smsSender.sendPostRequest(URL, 'Z26N1SVHHEL3CMGLFZTO1LAZQRR9ZVJM', 'W8XGKT0M20A5JTXI', 'stage', CallFrom, 'ABC123', msg )
     print (response.text)
