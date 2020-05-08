@@ -1,5 +1,5 @@
 {
-    "name": "Start on Heroku: Python",
+    "name": "Telecaller",
     "description": "A barebones Python app, which can easily be deployed to Heroku.",
     "image": "heroku/python",
     "repository": "https://github.com/silpidhua/Telecaller",
