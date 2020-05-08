@@ -15,7 +15,8 @@ class SMSSender():
     'senderid':senderId
     }
     return requests.post(reqUrl, req_params)
-    #return {'msg':'Hello from sendPostRequest'}
+    # myDict = {'text':'Hello from sendPostRequest'}
+    # return myDict
 if __name__ =='__main__': 
   URL = 'https://www.sms4india.com/api/v1/sendCampaign'
   smsSender = SMSSender()
