@@ -1,5 +1,4 @@
 import pymysql
-import MySQLdb
 
 class Results:
 
