@@ -7,7 +7,6 @@ app = Flask(__name__)
 CORS(app,expose_headers=["Content-Disposition"])
 @app.route('/')
 def root():
-    #URL = 'https://www.sms4india.com/api/v1/sendCampaign'
     CallSid=request.args.get('CallSid')
     CallFrom=request.args.get('CallFrom')
     CallTo=request.args.get('CallTo')
