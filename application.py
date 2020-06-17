@@ -1,7 +1,7 @@
 from flask import Flask,make_response, jsonify,request
 from flask_cors import CORS
 from result_lookup import Results
-from send_sms2 import SendSms
+from send_sms import SendSms
 import os
 app = Flask(__name__)
 CORS(app,expose_headers=["Content-Disposition"])
