@@ -1,32 +1,20 @@
-#Z26N1SVHHEL3CMGLFZTO1LAZQRR9ZVJM API Key
-#W8XGKT0M20A5JTXI secret key
+import http.client
+import urllib
+import urllib.request
 import requests
-import json
-class SMSSender():
- 
-  # get request
-  def sendPostRequest(self, reqUrl, apiKey, secretKey, useType, phoneNo, senderId, textMessage):
-    req_params = {
-    'apikey':apiKey,
-    'secret':secretKey,
-    'usetype':useType,
-    'phone': phoneNo,
-    'message':textMessage,
-    'senderid':senderId
-    }
-    return requests.post(reqUrl, req_params)
-    # myDict = {'text':'Hello from sendPostRequest'}
-    # return myDict
-if __name__ =='__main__': 
-  URL = 'https://www.sms4india.com/api/v1/sendCampaign'
-  smsSender = SMSSender()
-  # get response
-  response = smsSender.sendPostRequest(URL, 'Z26N1SVHHEL3CMGLFZTO1LAZQRR9ZVJM', 'W8XGKT0M20A5JTXI', 'stage', '8892472497', 'ABC123', 'Hello World' )
-  """
-  Note:-
-  you must provide apikey, secretkey, usetype, mobile, senderid and message values and then requst to api
-  """
-  # print response if you want
-  print(response.text)
 
+class SendSms:
 
+    def send_my_sms(self,msg,number):
+        if len(number)==11:
+            number = number[1:]
+        params = urllib.parse.urlencode({'message': msg, 'msisdn': number})
+        print(params)
+        url = 'https://global.datagenit.com/API/sms-api.php?auth=D!~3784gzsmL1yNOo&senderid=Infsms&'+params
+        resp = requests.get(url, verify=False)
+        print(resp)
+        return resp.content
+
+if __name__ == '__main__':
+    send_sms = SendSms()
+    send_sms.send_my_sms('hello world', '08892472497')
