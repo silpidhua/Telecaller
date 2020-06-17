@@ -1,27 +1,28 @@
 from flask import Flask,make_response, jsonify,request
 from flask_cors import CORS
-from send_sms import SMSSender
 from result_lookup import Results
+from send_sms2 import SendSms
 import os
 app = Flask(__name__)
 CORS(app,expose_headers=["Content-Disposition"])
 @app.route('/')
 def root():
-    URL = 'https://www.sms4india.com/api/v1/sendCampaign'
+    #URL = 'https://www.sms4india.com/api/v1/sendCampaign'
     CallSid=request.args.get('CallSid')
     CallFrom=request.args.get('CallFrom')
     CallTo=request.args.get('CallTo')
     CallType=request.args.get('CallType')
     From=request.args.get('From')
     To=request.args.get('To')
-    res = Results()
-    marks= res.getResult(CallFrom)
-    msg = 'CallSid:'+CallSid+' CallFrom:'+CallFrom+' CallTo:'+CallTo+' CallType:'+CallType+' From:'+From+' To:'+To+' Marks:'+marks
-    smsSender = SMSSender()
-    response = smsSender.sendPostRequest(URL, 'Z26N1SVHHEL3CMGLFZTO1LAZQRR9ZVJM', 'W8XGKT0M20A5JTXI', 'stage', CallFrom, 'ABC123', msg )
-    print (response.text)
+    result = Results()
+    marks = result.getResult(CallFrom)
+    msg = 'CallSid:'+str(CallSid)+' CallFrom:'+str(CallFrom)+' CallTo:'+str(CallTo)+' CallType:'+str(CallType)+' From:'+str(From)+' To:'+str(To)+' Marks:'+str(marks)
     print(msg)
-    return make_response(jsonify(response.text),200)
+    send_sms = SendSms()
+    data = send_sms.send_my_sms(msg,CallFrom)
+    print(msg)
+    return make_response(data,200)
+
 if __name__ =='__main__':
     #application = Application()
     #application.run()
